@@ -1,0 +1,233 @@
+<html>
+
+<head>
+    <style>
+        div {
+            //border:1px solid blue;
+        }
+        
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .a {
+            height: 460px;
+            width: 220px;
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            justify-content: space-around;
+            border-radius: 5px;
+            background-color: #514747;
+            color: white;
+        }
+        
+        .b {
+            height: 32%;
+            width: 77%;
+            border: 13px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            font-weight: bold;
+        }
+        
+        .c {
+            height: 50%;
+            width: 85%;
+        }
+        
+        .c1,
+        .c3 {
+            height: 30%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .c2 {
+            height: 35%;
+            width: 100%;
+            border-top: 2px dotted white;
+            border-bottom: 2px dotted white;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        
+        .c22 {
+            display: flex;
+            align-items: center;
+            flex-flow: column;
+        }
+        
+        .ll {
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        #session {
+            font-size: 18px;
+            color: #00a677;
+        }
+        
+        #bre {
+            font-size: 18px;
+            color: #c55605;
+        }
+        
+        button {
+            height: 20px;
+            width: 35px;
+            border-radius: 4px;
+            border: 0px;
+            background-color: #151515;
+            color: white;
+        }
+        
+        .c222 {
+            width: heigth: 20px;
+        }
+        
+        .b1 {
+            height: 40px;
+            width: 60px;
+        }
+        
+        #ll1 {
+            font-size: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="a">
+        <div class="b">
+
+            <label id="ll1"></label>
+        </div>
+        <div class="c">
+            <div class="c1">
+                <h1 id="heading"></h1>
+            </div>
+            <div class="c2">
+                <div class="c22">
+                    <label class="ll">session time</label>
+
+                    <label id="session"></label>
+                    <div class="c222">
+                        <button id="bw1" onclick="f1()">-</button>
+                        <button id="bw2" onclick="f2()">+</button>
+                    </div>
+
+                </div>
+                <div class="c22">
+                    <label class="ll">break time</label>
+                    <label id="bre"></label>
+                    <div class="c222">
+                        <button id="bw3" onclick="f3()">-</button>
+                        <button id="bw4" onclick="f4()">+</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="c3">
+                <button class="b1" onclick="f5()">Pause</button>
+                <button class="b1" onclick="k=0;f()">Reset</button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        const m = document.getElementById('ll1');
+        let x = 20;
+        let y = 5;
+        let s;
+        let t;
+        let k = 0;
+        let id;
+
+        f();
+
+        function f() {
+            s = x * 3600;
+            t = y * 3600;
+            m.style.color = "#00a8a9";
+            document.getElementById('session').innerHTML = x + " min";
+            document.getElementById('bre').innerHTML = y + " min";
+            clearInterval(id);
+            id = setInterval(timer, 1000 / 60);
+            document.getElementById("bw1").disabled = true;
+            document.getElementById("bw2").disabled = true;
+            document.getElementById("bw3").disabled = true;
+            document.getElementById("bw4").disabled = true;
+
+            m.innerHTML = x + ":00";
+            k++;
+
+        }
+
+        function timer() {
+            if (s > 0) {
+                s--;
+                m.style.color = "#00a8a9";
+                document.getElementById('heading').innerHTML = "Session " + k;
+                m.innerHTML = parseInt((s / 3600) % 60) + ":" + parseInt((s / 60) % 60);
+            }
+            if (s == 0) {
+                t--;
+                m.style.color = "#c55605";
+                document.getElementById('heading').innerHTML = "Break!";
+                m.innerHTML = parseInt((t / 3600) % 60) + ":" + parseInt((t / 60) % 60);
+                if (t == 0) {
+                    clearInterval(id);
+                    f();
+                }
+
+            }
+        }
+
+        function f1() {
+            if (x > 0)
+                x--;
+            document.getElementById('session').innerHTML = x + " min";
+        }
+
+        function f2() {
+
+            x++;
+            document.getElementById('session').innerHTML = x + " min";
+        }
+
+        function f3() {
+            if (y > 0)
+                y--;
+
+            document.getElementById('bre').innerHTML = y + " min";
+        }
+
+        function f4() {
+            y++;
+            document.getElementById('bre').innerHTML = y + " min";
+        }
+
+        function f5() {
+            clearInterval(id);
+            document.getElementById("bw1").disabled = false;
+            document.getElementById("bw2").disabled = false;
+            document.getElementById("bw3").disabled = false;
+            document.getElementById("bw4").disabled = false;
+
+        }
+    </script>
+</body>
+
+</html>
